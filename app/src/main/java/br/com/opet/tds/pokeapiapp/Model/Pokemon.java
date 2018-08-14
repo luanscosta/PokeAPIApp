@@ -17,6 +17,15 @@ public class Pokemon {
     private int height;
     private int weight;
     private List<Types> types;
+    private Sprites sprites;
+
+    public Sprites getSprites() {
+        return sprites;
+    }
+
+    public void setSprites(Sprites sprites) {
+        this.sprites = sprites;
+    }
 
     public Pokemon() {
     }
@@ -91,3 +100,5 @@ public class Pokemon {
         }
     }
 }
+
+
