@@ -3,6 +3,7 @@ package br.com.opet.tds.pokeapiapp.Activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,7 +28,8 @@ import br.com.opet.tds.pokeapiapp.R;
 
 public class MainActivity extends Activity {
 
-    private static final String URL = "https://pokeapi.co/api/v2/pokemon/"+;
+    private static final String URL = "https://pokeapi.co/api/v2/pokemon/";
+
     private RequestQueue queue;
     private Gson gson;
 
@@ -52,16 +54,19 @@ public class MainActivity extends Activity {
         textHeight = findViewById(R.id.textHeight);
         textWeight = findViewById(R.id.textWeight);
         textTypes = findViewById(R.id.textTypes);
+        search = findViewById(R.id.findPoke);
+        botao = findViewById(R.id.botao);
         image = findViewById(R.id.image);
         progressBar = findViewById(R.id.progressConnection);
 
         GsonBuilder builder = new GsonBuilder();
         gson = builder.create();
         queue = Volley.newRequestQueue(this);
-        callPokemon();
     }
 
-    private void callPokemon(){
+
+
+    private void callPokemon(View view){
         progressBar.setVisibility(ProgressBar.VISIBLE);
         StringRequest request = new StringRequest(Request.Method.GET,URL,onPokemonLoaded,onPokemonError);
         queue.add(request);
@@ -76,7 +81,6 @@ public class MainActivity extends Activity {
             textName.setText(pokemon.getName());
             textHeight.setText(String.valueOf(pokemon.getHeight()));
             textWeight.setText(String.valueOf(pokemon.getWeight()));
-
             Picasso.get().load(pokemon.getSprites().getFront_default()).resize(image.getWidth(),image.getWidth()).into(image);
 
             String stypes = "";
@@ -100,7 +104,7 @@ public class MainActivity extends Activity {
             Log.e("POKERESPONSE",error.toString());
             Toast.makeText(MainActivity.this, "Erro ao capturar os dados.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(ProgressBar.GONE);
-            callPokemon();
         }
     };
+
 }
